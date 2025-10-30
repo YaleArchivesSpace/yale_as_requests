@@ -1,8 +1,15 @@
 class AeonContainerMapper < AeonRecordMapper
+  
+  # Check this class actually loads
+  Rails.logger.info("Aeon debug: mapper loaded from #{__FILE__} (timestamp: #{Time.now})")
+
   register_for_record_type(Container)
 
   # Override hide_button? to check parent resource restrictions
   def hide_button?
+    # Log entry to confirm this method runs at all
+    Rails.logger.info("Aeon debug: hide_button? called for #{@record.json['uri']}")
+
     # First check the standard restrictions on the container itself
     return true if super
     
