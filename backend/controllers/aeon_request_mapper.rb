@@ -63,6 +63,10 @@ class ArchivesSpaceService < Sinatra::Base
           .permissions([:view_all_records])
           .returns([200, "{}"]) \
   do
+    allowed_origins = ['https://aeon.library.yale.edu', 'https://aeon-test.library.yale.edu']
+    if allowed_origins.include?(request.env['HTTP_ORIGIN'])
+      headers 'Access-Control-Allow-Origin' => request.env['HTTP_ORIGIN']
+    end
     RequestContext.open(:enforce_suppression => true) do
       json_response(:columns => AeonGridRow.column_definitions,
                     :requests => AeonGridRowPopulator.rows_for(params[:q], RESOLVE_PARAMS))
