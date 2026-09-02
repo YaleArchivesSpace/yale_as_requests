@@ -77,7 +77,7 @@ class AeonRequest
 
       request["instance_top_container_ref"] = container['top_container']['ref']
 
-      request['ItemFolder'] = ['2', '3'].map {|lvl|
+      request['CustomFields.ItemFolder'] = ['2', '3'].map {|lvl|
         (container["type_#{lvl}"] || '').downcase == 'folder' ? container["indicator_#{lvl}"] : nil
       }.compact.join('; ')
 
@@ -124,7 +124,7 @@ class AeonRequest
 
     request['ItemVolume'] = json['display_string'][0, (json['display_string'].index(':') || json['display_string'].length)]
     request['TopContainerURI'] = json['uri']
-    request["ItemSeries"] = json['series'].map{|s| s['level_display_string'] + ' ' + s['identifier'] + '. ' + s['display_string']}.join('; ')
+    request["CustomFields.ItemSeries"] = json['series'].map{|s| s['level_display_string'] + ' ' + s['identifier'] + '. ' + s['display_string']}.join('; ')
 
     if (loc = json['container_locations'].find{|cl| cl['status'] == 'current'})
       if (resolved_location = loc['_resolved'])
