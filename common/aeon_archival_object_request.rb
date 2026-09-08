@@ -67,16 +67,16 @@ class AeonArchivalObjectRequest
     creator = json['linked_agents'].find{|a| a['role'] == 'creator'}
 
     out['ItemAuthor'] = creator['_resolved']['title'] if creator
-    out['AccessRestrictionNote'] = AeonRequest.access_restrictions_content(json['notes'])
+    out['ItemInfo5'] = AeonRequest.access_restrictions_content(json['notes'])
 
-    out['UseRestrictionNote'] = json['notes'].select {|n| n['type'] == 'userestrict'}
+    out['ItemInfo6'] = json['notes'].select {|n| n['type'] == 'userestrict'}
       .map {|n| n['subnotes'].map {|s| s['content']}.join(' ')}
       .join(' ')
 
     out['ExtentPhysicalDescription'] = json['extents'].select {|e| !e.has_key?('_inherited')}
       .map {|e| "#{e['number']} #{e['extent_type']}"}.join('; ')
 
-    out['RestrictionCode'] = AeonRequest.local_access_restrictions(json['notes'])
+    out['ItemInfo8'] = AeonRequest.local_access_restrictions(json['notes'])
 
     unless (digital_objects = opts.fetch(:resolved_digital_objects, json['instances'].map{|instance| instance.dig('digital_object', '_resolved')}.compact)).empty?
       out['DigitalObjectID'] = digital_objects.map{|do_json| "#{JSONModel(:digital_object).id_for(do_json.fetch('uri'))} (#{do_json.fetch('publish') ? 'P' : 'U'})"}.uniq.join('; ')

@@ -120,7 +120,7 @@ class AeonRequest
 
     request["ReferenceNumber"] = request["instance_top_container_barcode"]
 
-    request['TopContainerRestriction'] = json['restricted'] ? 'Y' : 'N'
+    request['ItemInfo1'] = json['restricted'] ? 'Y' : 'N'
 
     request['ItemVolume'] = json['display_string'][0, (json['display_string'].index(':') || json['display_string'].length)]
     request['TopContainerURI'] = json['uri']
