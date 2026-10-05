@@ -76,7 +76,7 @@ class AeonArchivalObjectRequest
     out['ExtentPhysicalDescription'] = json['extents'].select {|e| !e.has_key?('_inherited')}
       .map {|e| "#{e['number']} #{e['extent_type']}"}.join('; ')
 
-    out['ItemInfo8'] = AeonRequest.local_access_restrictions(json['notes'])
+    out['ItemInfo6'] = AeonRequest.local_access_restrictions(json['notes'])
 
     unless (digital_objects = opts.fetch(:resolved_digital_objects, json['instances'].map{|instance| instance.dig('digital_object', '_resolved')}.compact)).empty?
       out['DigitalObjectID'] = digital_objects.map{|do_json| "#{JSONModel(:digital_object).id_for(do_json.fetch('uri'))} (#{do_json.fetch('publish') ? 'P' : 'U'})"}.uniq.join('; ')

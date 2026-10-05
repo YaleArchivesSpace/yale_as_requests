@@ -13,7 +13,7 @@ class AeonTopContainerRequest
     restrictions_notes = json['active_restrictions'].map {|a| a['linked_records']['_resolved']['notes']}.flatten
     out['accessrestrict'] = AeonRequest.access_restrictions_content(restrictions_notes)
     out['ItemInfo5'] = out['accessrestrict']
-    out['ItemInfo8'] = AeonRequest.local_access_restrictions(restrictions_notes)
+    out['ItemInfo6'] = AeonRequest.local_access_restrictions(restrictions_notes)
 
     out['ItemInfo12'] = out['collection_title']
 
