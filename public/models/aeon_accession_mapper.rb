@@ -35,10 +35,10 @@ class AeonAccessionMapper < AeonRecordMapper
         end
 
         # Access restriction notes
-        mappings['AccessRestrictionNote'] = json['access_restrictions_note']
+        mappings['ItemInfo5'] = json['access_restrictions_note']
 
         # Use restrictions note
-        mappings['UseRestrictionNote'] = json['use_restrictions_note']
+        mappings['ItemInfo8'] = json['use_restrictions_note']
 
         # Extents
         mappings['ExtentPhysicalDescription'] = json['extents'].select {|e| !e.has_key?('_inherited')}
